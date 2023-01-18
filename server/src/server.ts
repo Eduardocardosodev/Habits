@@ -1,18 +1,12 @@
-// Back-end API restFull
-
 import Fastify from 'fastify';
-import { PrismaClient } from '@prisma/client';
+
 import cors from '@fastify/cors';
+import { appRoutes } from './lib/routes';
 
 const app = Fastify();
-const prismaClient = new PrismaClient();
+
 app.register(cors);
-
-app.get('/', async () => {
-  const habits = await prismaClient.habit.findMany();
-
-  return 'Hello word';
-});
+app.register(appRoutes);
 
 app
   .listen({
